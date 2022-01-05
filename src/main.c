@@ -6,14 +6,16 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:13:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/05 22:15:32 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/05 22:46:42 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "../philo.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	printf("hoge\n");
+	t_philo_args	args;
+	if (!parse_args(argc, argv, &args))
+		return (1);
 	return (0);
 }
