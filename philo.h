@@ -6,14 +6,14 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/05 22:46:07 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/05 22:52:31 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdbool.h>
+# include	<stdbool.h>
 
 typedef struct s_philo_args
 {
@@ -25,7 +25,7 @@ typedef struct s_philo_args
 }	t_philo_args;
 
 // src/atoi.c
-int	atoi(const char *str);
+int		atoi(const char *str);
 
 // src/parse_args.c
 bool	parse_args(int argc, char **argv, t_philo_args *args);
