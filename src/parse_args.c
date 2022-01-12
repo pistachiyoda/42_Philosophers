@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:27:37 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/12 11:24:22 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/12 16:31:21 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,26 @@ int	check_input(t_philo_args *args)
 	return (0);
 }
 
-int	parse_args(int argc, char **argv, t_philo_args *args)
+int	parse_args(int argc, char **argv, t_info *info)
 {
 	if (argc < 5 || 6 < argc)
 		return(1);
-	args->number_of_philosophers = atoi(argv[1]);
-	args->time_to_die = atoi(argv[2]);
-	args->time_to_eat = atoi(argv[3]);
-	args->time_to_sleep = atoi(argv[4]);
+	info->args = malloc(sizeof(t_philo_args *) * 1);
+	if (info->args == NULL)
+		return (1);
+	info->args->number_of_philosophers = atoi(argv[1]);
+	info->args->time_to_die = atoi(argv[2]);
+	info->args->time_to_eat = atoi(argv[3]);
+	info->args->time_to_sleep = atoi(argv[4]);
 	if (argc == 5)
 	{
-		args->is_must_eat = false;
-		args->number_of_times_each_philosopher_must_eat = -1;
+		info->args->is_must_eat = false;
+		info->args->number_of_times_each_philosopher_must_eat = -1;
 	}
 	else
 	{
-		args->is_must_eat = true;
-		args->number_of_times_each_philosopher_must_eat = atoi(argv[5]);
+		info->args->is_must_eat = true;
+		info->args->number_of_times_each_philosopher_must_eat = atoi(argv[5]);
 	}
-	return (check_input(args));
+	return (check_input(info->args));
 }
