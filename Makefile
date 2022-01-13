@@ -1,7 +1,7 @@
 NAME = philo
 CC = gcc
-CFILES = ./src/main.c ./src/parse_args.c ./src/atoi.c ./src/start_philos.c ./src/philo.c ./src/error_handling.c\
-		./src/init_philos.c
+CFILES = ./src/main.c ./src/parse_args.c ./src/atoi.c ./src/start_philos.c ./src/simulation.c ./src/error_handling.c\
+		./src/init_philos.c ./src/utils.c
 CFLAGS = -Wall -Wextra -Werror
 OBJ = $(CFILES:.c=.o)
 

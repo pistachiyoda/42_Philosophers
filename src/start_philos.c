@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 22:12:28 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/13 00:09:17 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/13 12:04:03 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	start_philos(t_info *info, t_philo_args *args, pthread_t *threads)
 	{
 		args[i].index = i;
 		args[i].info = info;
-		pthread_create(&threads[i], NULL, philo, &args[i]);
+		pthread_create(&threads[i], NULL, simulation, &args[i]);
 		i ++;
 	}
 	i = 0;

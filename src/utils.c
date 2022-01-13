@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/05 22:57:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/12 23:58:00 by fmai             ###   ########.fr       */
+/*   Created: 2022/01/13 13:05:28 by fmai              #+#    #+#             */
+/*   Updated: 2022/01/13 13:56:34 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
-#include <stdio.h>
 
-void	*philo(void *_args)
+long long	get_time(void)
 {
-	t_philo_args	*args;
-	t_philosopher	me;
+	t_timeval time;
 
-	args = (t_philo_args *)_args;
-	me = args->info->philosophers[args->index];
-	printf("start philo: %d\n", me.number);
-	return (NULL);
+	gettimeofday(&time, NULL);
+	return (time.tv_sec / 1000 + time.tv_usec * 1000);
 }

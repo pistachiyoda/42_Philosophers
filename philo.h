@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/13 00:09:20 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/13 13:46:08 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,16 @@ int	parse_args(int argc, char **argv, t_info *info);
 // src/start_philos.c
 bool	start_philos(t_info *info, t_philo_args *args, pthread_t *thread);
 
-// src/philo.c
-void	*philo(void *args);
+// src/simulation.c
+void	*simulation(void *args);
 
 // src/error_handling.c
 int		error(void);
 
 // src/init_philos.c
 int	init_philos(t_info *info);
+
+// src/utils.c
+long long	get_time(void);
 
 #endif
