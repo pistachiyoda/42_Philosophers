@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/13 13:46:08 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/14 23:06:57 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,15 @@ typedef struct s_input_args
 
 typedef struct timeval t_timeval;
 
+typedef struct s_monitor
+{
+	bool	is_a_philosopher_dead;
+	pthread_mutex_t dead;
+}	t_monitor;
 typedef struct s_philosopher
 {
 	int number;
-	int lefttime_to_die;
-	int	lefttime_to_eat;
-	int	lefttime_to_sleep;
+	long long	lasttime_eat;
 	bool is_must_eat;
 	int	must_eat_cnt;
 	int ate_cnt;
@@ -49,6 +52,7 @@ typedef struct s_info
 {
 	t_input_args 	args;
 	t_philosopher 	*philosophers;
+	t_monitor		monitor;
 }	t_info;
 
 typedef struct s_philo_args {
@@ -63,7 +67,7 @@ int		atoi(const char *str);
 int	parse_args(int argc, char **argv, t_info *info);
 
 // src/start_philos.c
-bool	start_philos(t_info *info, t_philo_args *args, pthread_t *thread);
+bool	start_philos(t_info *info, t_philo_args *args, pthread_t *philo_threads, pthread_t *monitor_threads);
 
 // src/simulation.c
 void	*simulation(void *args);
@@ -76,5 +80,8 @@ int	init_philos(t_info *info);
 
 // src/utils.c
 long long	get_time(void);
+
+// src/monitor.c
+void	*monitor(void *_args);
 
 #endif

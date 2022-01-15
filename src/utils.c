@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:05:28 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/13 13:56:34 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/13 19:47:50 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ long long	get_time(void)
 	t_timeval time;
 
 	gettimeofday(&time, NULL);
-	return (time.tv_sec / 1000 + time.tv_usec * 1000);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
