@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:57:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/16 20:02:02 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/16 22:48:34 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,68 +19,43 @@ bool	is_dead(t_philo_args *args)
 	return (args->info->monitor.is_a_philosopher_dead);
 }
 
+int	take_a_folk(t_philosopher *philo, t_philo_args *args, pthread_mutex_t *folk, bool goona_eat)
+{
+	pthread_mutex_lock(folk);
+	pthread_mutex_lock(&args->info->monitor.dead);
+	if (is_dead(args))
+	{
+		pthread_mutex_unlock(folk);
+		return (1);
+	}
+	if (goona_eat)
+	{
+		philo->lasttime_eat = get_time();
+		printf(
+			"%lld %d has taken a fork\n%lld %d is eating\n",
+			philo->lasttime_eat, args->index, philo->lasttime_eat, args->index);
+	}
+	else
+	{
+		printf(
+			"%lld %d has taken a fork\n",
+			get_time(), args->index);
+	}
+	pthread_mutex_unlock(&args->info->monitor.dead);
+	return (0);
+}
+
 int	take_fork_odd(t_philosopher *philo, t_philo_args *args)
 {
-	long long timestamp;
-
-	pthread_mutex_lock(philo->right_fork);
-	pthread_mutex_lock(&args->info->monitor.dead);
-	if (is_dead(args))
-	{
-		pthread_mutex_unlock(philo->right_fork);
-		return (1);
-	}
-	printf(
-		"%lld %d has taken right a fork\n",
-		get_time(), args->index);
-	pthread_mutex_unlock(&args->info->monitor.dead);
-
-	pthread_mutex_lock(philo->left_fork);
-	pthread_mutex_lock(&args->info->monitor.dead);
-	if (is_dead(args))
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		return (1);
-	}
-	timestamp = get_time();
-	printf(
-		"%lld %d has taken left a fork\n%lld %d is eating\n",
-		timestamp, args->index, timestamp, args->index);
-	pthread_mutex_unlock(&args->info->monitor.dead);
-	philo->lasttime_eat = timestamp;
+	take_a_folk(philo, args, philo->right_fork, false);
+	take_a_folk(philo, args, philo->left_fork, true);
 	return (0);
 }
 
 int	take_fork_even(t_philosopher *philo, t_philo_args *args)
 {
-	long long timestamp;
-
-	pthread_mutex_lock(philo->left_fork);
-	pthread_mutex_lock(&args->info->monitor.dead);
-	if (is_dead(args))
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		return (1);
-	}
-	printf(
-		"%lld %d has taken a left fork\n",
-		get_time(), args->index);
-	pthread_mutex_unlock(&args->info->monitor.dead);
-
-	pthread_mutex_lock(philo->right_fork);
-	pthread_mutex_lock(&args->info->monitor.dead);
-	if (is_dead(args))
-	{
-		pthread_mutex_unlock(philo->left_fork);
-		return (1);
-	}
-	// timestamp = 0;
-	timestamp = get_time();
-	printf(
-		"%lld %d has taken a right fork\n%lld %d is eating\n",
-		timestamp, args->index, timestamp, args->index);
-	pthread_mutex_unlock(&args->info->monitor.dead);
-	philo->lasttime_eat = timestamp;
+	take_a_folk(philo, args, philo->left_fork, false);
+	take_a_folk(philo, args, philo->right_fork, true);
 	return (0);
 }
 
