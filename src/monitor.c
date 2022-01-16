@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:37:01 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/15 22:45:13 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/16 19:56:58 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*monitor(void *_args)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&args->info->monitor.dead);
-		usleep(200);
+		usleep(10);
 	}
 	return (NULL);
 }
