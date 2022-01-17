@@ -6,11 +6,21 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:13:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/15 15:36:25 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 16:15:35 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+int	handle_alone(t_info	*info)
+{
+	long long	timestamp;
+
+	timestamp = get_time();
+	printf("%lld %d has taken a fork\n", get_time(), 1);
+	printf("%lld %d died\n", get_time() + info->args.time_to_die, 1);
+	return (1);
+}
 
 int	main(int argc, char **argv)
 {
@@ -21,6 +31,8 @@ int	main(int argc, char **argv)
 
 	if (parse_args(argc, argv, &info) == 1)
 		return (error());
+	if (info.args.number_of_philosophers == 1)
+		return (handle_alone(&info));
 	if (init_philos(&info) == 1)
 		return (error());
 	philo_args_list = malloc(sizeof(t_philo_args) * info.args.number_of_philosophers);
