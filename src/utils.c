@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:05:28 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 11:59:39 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:27:59 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ long long	get_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-bool	is_dead(t_philo_args *args)
+int	is_dead(t_philo_args *args)
 {
 	if (args->info->monitor.is_a_philosopher_dead)
-		pthread_mutex_unlock(&args->info->monitor.dead); // todo: 失敗した時の処理検討
+	{
+		if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
+			return (-1);
+	}
 	return (args->info->monitor.is_a_philosopher_dead);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 21:04:50 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:28:20 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	init_philos(t_info *info);
 
 // src/utils.c
 long long	get_time(void);
-bool	is_dead(t_philo_args *args);
+int	is_dead(t_philo_args *args);
 void	philo_wait(long long prev_timestamp, int wait_msec);
 
 // src/monitor.c
