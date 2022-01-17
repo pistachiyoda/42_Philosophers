@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 10:46:56 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 22:05:35 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 22:22:01 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,12 @@ int	handle_fork(t_philosopher *me, bool *is_odd, t_philo_args *args)
 	}
 	if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
 		return (-1);
-	philo_wait(args->info->philosophers[args->index].lasttime_eat,
+	philo_wait(me->lasttime_eat,
 		args->info->args.time_to_eat);
 	if (put_forks(me, is_odd) != 0)
 		return (-1);
+	me->ate_cnt ++;
+	if (me->ate_cnt == args->info->args.number_of_times_each_philosopher_must_eat)
+		return (1);
 	return (0);
 }

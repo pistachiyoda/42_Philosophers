@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:34:13 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/14 23:34:42 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 22:36:16 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	init_philos(t_info *info)
 		info->philosophers[i].number = i;
 		info->philosophers[i].lasttime_eat = get_time();
 		info->philosophers[i].is_must_eat = info->args.is_must_eat;
-		info->philosophers[i].must_eat_cnt = info->args.number_of_times_each_philosopher_must_eat;
 		info->philosophers[i].ate_cnt = 0;
 		i++;
 	}

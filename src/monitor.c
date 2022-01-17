@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:37:01 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 21:01:29 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 22:23:05 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	*monitor(void *_args)
 	i = args->index;
 	while (!(args->info->monitor.is_a_philosopher_dead))
 	{
+		if (args->info->philosophers[i].ate_cnt == args->info->args.number_of_times_each_philosopher_must_eat)
+			return (NULL);
 		pthread_mutex_lock(&args->info->monitor.dead);
 		if (args->info->monitor.is_a_philosopher_dead)
 		{

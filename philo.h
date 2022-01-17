@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 21:28:20 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 22:10:27 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_philosopher
 	int number;
 	long long	lasttime_eat;
 	bool is_must_eat;
-	int	must_eat_cnt;
 	int ate_cnt;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t *left_fork;
