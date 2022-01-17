@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 11:34:07 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 11:58:38 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:01:06 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	handle_think(t_philo_args *args)
 		return (1);
 	if (is_dead(args)) //todo: is_deadエラー時の処理
 		return (0);
-	printf("%lld %d is thinking\n", get_time(), args->index);
+	printf("%lld %d is thinking\n", get_time(), args->index + 1);
 	if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
 		return (1);
 	return (2);

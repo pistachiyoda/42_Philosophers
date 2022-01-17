@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 22:37:01 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/16 19:56:58 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:01:29 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*monitor(void *_args)
 		if (args->info->philosophers[i].lasttime_eat + args->info->args.time_to_die
 			< get_time())	
 		{
-			printf("%lld %d died\n", get_time(), i);
+			printf("%lld %d died\n", get_time(), i + 1);
 			args->info->monitor.is_a_philosopher_dead = true;
 			pthread_mutex_unlock(&args->info->monitor.dead);
 			return (NULL);

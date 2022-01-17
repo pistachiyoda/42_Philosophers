@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 10:46:56 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 11:58:32 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:00:49 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	take_a_folk(t_philosopher *philo, t_philo_args *args,
 		philo->lasttime_eat = get_time();
 		printf(
 			"%lld %d has taken a fork\n%lld %d is eating\n",
-			philo->lasttime_eat, args->index, philo->lasttime_eat, args->index);
+			philo->lasttime_eat, args->index + 1, philo->lasttime_eat, args->index + 1);
 	}
 	else
 	{
 		printf(
 			"%lld %d has taken a fork\n",
-			get_time(), args->index);
+			get_time(), args->index + 1);
 	}
 	if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 11:21:56 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 11:58:14 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:01:00 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	handle_sleep(t_philo_args *args)
 		return (1);
 	if (is_dead(args)) //todo: is_deadエラー時の処理
 		return (0); 
-	printf("%lld %d is sleeping\n", timestamp, args->index);
+	printf("%lld %d is sleeping\n", timestamp, args->index + 1);
 	if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
 		return (1);
 	philo_wait(timestamp, args->info->args.time_to_sleep);
