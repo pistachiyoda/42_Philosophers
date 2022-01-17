@@ -6,22 +6,22 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 10:46:56 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 21:00:49 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:04:50 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	take_a_folk(t_philosopher *philo, t_philo_args *args,
-	pthread_mutex_t *folk, bool goona_eat)
+int	take_a_fork(t_philosopher *philo, t_philo_args *args,
+	pthread_mutex_t *fork, bool goona_eat)
 {
-	if (pthread_mutex_lock(folk) != 0)
+	if (pthread_mutex_lock(fork) != 0)
 		return (1);
 	if (pthread_mutex_lock(&args->info->monitor.dead) != 0)
 		return (1);
 	if (is_dead(args))
 	{
-		pthread_mutex_unlock(folk); //関数失敗時とis_deadがtrueの場合の処理の違いを調べる
+		pthread_mutex_unlock(fork); //関数失敗時とis_deadがtrueの場合の処理の違いを調べる
 		return (1);
 	}
 	if (goona_eat)
@@ -46,16 +46,16 @@ int	take_forks(t_philosopher *philo, bool *is_odd, t_philo_args *args)
 {
 	if (*is_odd)
 	{
-		if (take_a_folk(philo, args, philo->right_fork, false) != 0)
+		if (take_a_fork(philo, args, philo->right_fork, false) != 0)
 			return (1);
-		if (take_a_folk(philo, args, philo->left_fork, true) != 0)
+		if (take_a_fork(philo, args, philo->left_fork, true) != 0)
 			return (1);
 	}
 	else
 	{
-		if (take_a_folk(philo, args, philo->left_fork, false) != 0 )
+		if (take_a_fork(philo, args, philo->left_fork, false) != 0 )
 			return (1);
-		if (take_a_folk(philo, args, philo->right_fork, true) != 0)
+		if (take_a_fork(philo, args, philo->right_fork, true) != 0)
 			return (1);
 	}
 	return (0);
@@ -81,7 +81,7 @@ int	put_forks(t_philosopher *philo, bool *is_odd)
 }
 
 // 0の時は正常系で哲学者が死んだ時、1の時は何かしらエラー、2の時は処理を続けたい時
-int	handle_folk(t_philosopher *me, bool *is_odd, t_philo_args *args)
+int	handle_fork(t_philosopher *me, bool *is_odd, t_philo_args *args)
 {
 	if (take_forks(me, is_odd, args) != 0)
 		return (1);

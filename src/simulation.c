@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:57:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 11:55:41 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:04:50 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	eat(t_philo_args *args)
 	is_odd = args->index % 2;
 	while (1)
 	{
-		if (handle_folk(me, &is_odd, args) == 0) // todo: 1の時のエラー処理
+		if (handle_fork(me, &is_odd, args) == 0) // todo: 1の時のエラー処理
 			return (0);
 		if (handle_sleep(args) == 0)// todo: 1の時のエラー処理
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 11:35:12 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 21:04:50 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	philo_wait(long long prev_timestamp, int wait_msec);
 // src/monitor.c
 void	*monitor(void *_args);
 
-// src/handle_folk.c
-int	handle_folk(t_philosopher *me, bool *is_odd, t_philo_args *args);
+// src/handle_fork.c
+int	handle_fork(t_philosopher *me, bool *is_odd, t_philo_args *args);
 
 // src/handle_sleep.c
 int	handle_sleep(t_philo_args *args);
