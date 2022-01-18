@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:34:13 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 22:36:16 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 23:11:11 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int set_forks(t_info *info)
 	fork_mutexes = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * info->args.number_of_philosophers);
 	if (fork_mutexes == NULL)
 		return (1);
+	info->fork_mutexes = fork_mutexes;
 	i = 0;
 	while (i < info->args.number_of_philosophers)
 	{

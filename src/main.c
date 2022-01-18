@@ -6,11 +6,16 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:13:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 16:15:35 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 22:38:45 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+__attribute__((destructor))
+static void destructor() {
+    system("leaks philo");
+}
 
 int	handle_alone(t_info	*info)
 {
@@ -40,5 +45,6 @@ int	main(int argc, char **argv)
 	monitor_threads = malloc(sizeof(pthread_t) * info.args.number_of_philosophers);
 	start_philos(&info, philo_args_list, philo_threads, monitor_threads);
 	free(philo_threads);
+	free(monitor_threads);
 	free(philo_args_list);
 }

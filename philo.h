@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 22:10:27 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/17 23:11:22 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_info
 	t_input_args 	args;
 	t_philosopher 	*philosophers;
 	t_monitor		monitor;
+	pthread_mutex_t	*fork_mutexes;
 }	t_info;
 
 typedef struct s_philo_args {
