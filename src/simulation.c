@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:57:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 21:52:12 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/18 11:42:40 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void	eat(t_philo_args *args)
 {
 	t_philosopher	*me;
 	bool			is_odd;
-	
+
 	me = &args->info->philosophers[args->index];
 	is_odd = args->index % 2;
 	while (1)
 	{
 		if (handle_fork(me, &is_odd, args) != 0)
-			return;
+			return ;
 		if (handle_sleep(args) != 0)
-			return;
+			return ;
 		if (handle_think(args) != 0)
-			return;
+			return ;
 	}
 }
 

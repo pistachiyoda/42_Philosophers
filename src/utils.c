@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:05:28 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 21:27:59 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/18 12:02:43 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long long	get_time(void)
 {
-	t_timeval time;
+	t_timeval	time;
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
@@ -40,7 +40,7 @@ void	philo_wait(long long prev_timestamp, int wait_msec)
 	{
 		timestamp = get_time();
 		if (timestamp >= target)
-			return;
+			return ;
 		usleep(50);
 	}
 }

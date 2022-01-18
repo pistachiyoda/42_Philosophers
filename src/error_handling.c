@@ -6,14 +6,14 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 10:20:00 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/12 10:59:07 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/18 13:08:44 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
 // メモリのフリー処理
-int error(void)
+int	error(void)
 {
 	printf("Error\n");
 	return (1);

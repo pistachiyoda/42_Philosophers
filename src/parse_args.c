@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:27:37 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/12 23:43:12 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/18 11:07:53 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_input(t_input_args args)
 int	parse_args(int argc, char **argv, t_info *info)
 {
 	if (argc < 5 || 6 < argc)
-		return(1);
+		return (1);
 	info->args.number_of_philosophers = atoi(argv[1]);
 	info->args.time_to_die = atoi(argv[2]);
 	info->args.time_to_eat = atoi(argv[3]);

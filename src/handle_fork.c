@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 10:46:56 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 22:22:01 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/18 13:09:14 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	take_a_fork(t_philosopher *philo, t_philo_args *args,
 		return (-1);
 	if (is_dead(args) != 0)
 	{
-		pthread_mutex_unlock(fork); //関数失敗時とis_deadがtrueの場合の処理の違いを調べる
+		pthread_mutex_unlock(fork);
 		return (-1);
 	}
 	if (goona_eat)
@@ -29,13 +29,13 @@ int	take_a_fork(t_philosopher *philo, t_philo_args *args,
 		philo->lasttime_eat = get_time();
 		printf(
 			"%lld %d has taken a fork\n%lld %d is eating\n",
-			philo->lasttime_eat, args->index + 1, philo->lasttime_eat, args->index + 1);
+			philo->lasttime_eat, args->index + 1,
+			philo->lasttime_eat, args->index + 1);
 	}
 	else
 	{
 		printf(
-			"%lld %d has taken a fork\n",
-			get_time(), args->index + 1);
+			"%lld %d has taken a fork\n", get_time(), args->index + 1);
 	}
 	if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
 		return (-1);
@@ -80,7 +80,7 @@ int	put_forks(t_philosopher *philo, bool *is_odd)
 	return (0);
 }
 
-// 0の時は処理を続けたい時、1の時は正常系で哲学者が死んだ時、-1の時は何かしらエラー
+// 0:Continue processing, 1:Philo dead, -1:Error
 int	handle_fork(t_philosopher *me, bool *is_odd, t_philo_args *args)
 {
 	if (take_forks(me, is_odd, args) != 0)
@@ -100,7 +100,8 @@ int	handle_fork(t_philosopher *me, bool *is_odd, t_philo_args *args)
 	if (put_forks(me, is_odd) != 0)
 		return (-1);
 	me->ate_cnt ++;
-	if (me->ate_cnt == args->info->args.number_of_times_each_philosopher_must_eat)
+	if (me->ate_cnt
+		== args->info->args.number_of_times_each_philosopher_must_eat)
 		return (1);
 	return (0);
 }

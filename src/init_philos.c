@@ -6,18 +6,19 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:34:13 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/17 23:11:11 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/18 11:10:13 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int set_forks(t_info *info)
+int	set_forks(t_info *info)
 {
 	int				i;
 	pthread_mutex_t	*fork_mutexes;
 
-	fork_mutexes = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * info->args.number_of_philosophers);
+	fork_mutexes = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* info->args.number_of_philosophers);
 	if (fork_mutexes == NULL)
 		return (1);
 	info->fork_mutexes = fork_mutexes;
@@ -26,7 +27,8 @@ int set_forks(t_info *info)
 	{
 		pthread_mutex_init(&fork_mutexes[i], NULL);
 		if (i == 0)
-			info->philosophers[i].left_fork = &fork_mutexes[info->args.number_of_philosophers - 1];
+			info->philosophers[i].left_fork
+				= &fork_mutexes[info->args.number_of_philosophers - 1];
 		else
 			info->philosophers[i].left_fork = &fork_mutexes[i - 1];
 		info->philosophers[i].right_fork = &fork_mutexes[i];
@@ -37,9 +39,10 @@ int set_forks(t_info *info)
 
 int	init_philos(t_info *info)
 {
-	int i;
+	int	i;
 
-	info->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher) * info->args.number_of_philosophers);
+	info->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
+			* info->args.number_of_philosophers);
 	if (info->philosophers == NULL)
 		return (1);
 	i = 0;
