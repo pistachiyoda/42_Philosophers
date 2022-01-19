@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:57:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/18 11:42:40 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/19 15:27:50 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*simulation(void *_args)
 
 	args = (t_philo_args *)_args;
 	if (args->index % 2)
-		usleep(200);
+		usleep(500);
 	eat(args);
 	return (NULL);
 }

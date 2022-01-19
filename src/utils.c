@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:05:28 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/18 12:02:43 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/19 15:28:23 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void	philo_wait(long long prev_timestamp, int wait_msec)
 		timestamp = get_time();
 		if (timestamp >= target)
 			return ;
-		usleep(50);
+		usleep(500);
 	}
 }
