@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 10:46:56 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/18 13:09:14 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/19 22:46:39 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	take_a_fork(t_philosopher *philo, t_philo_args *args,
 	pthread_mutex_t *fork, bool goona_eat)
 {
-	if (pthread_mutex_lock(fork) != 0)
-		return (-1);
-	if (pthread_mutex_lock(&args->info->monitor.dead) != 0)
-		return (-1);
+	pthread_mutex_lock(fork);
+	pthread_mutex_lock(&args->info->monitor.dead);
 	if (is_dead(args) != 0)
 	{
 		pthread_mutex_unlock(fork);
@@ -37,8 +35,7 @@ int	take_a_fork(t_philosopher *philo, t_philo_args *args,
 		printf(
 			"%lld %d has taken a fork\n", get_time(), args->index + 1);
 	}
-	if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
-		return (-1);
+	pthread_mutex_unlock(&args->info->monitor.dead);
 	return (0);
 }
 
@@ -61,23 +58,18 @@ int	take_forks(t_philosopher *philo, bool *is_odd, t_philo_args *args)
 	return (0);
 }
 
-int	put_forks(t_philosopher *philo, bool *is_odd)
+void	put_forks(t_philosopher *philo, bool *is_odd)
 {
 	if (*is_odd)
 	{
-		if (pthread_mutex_unlock(philo->left_fork) != 0)
-			return (-1);
-		if (pthread_mutex_unlock(philo->right_fork) != 0)
-			return (-1);
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
 	}
 	else
 	{
-		if (pthread_mutex_unlock(philo->right_fork) != 0)
-			return (-1);
-		if (pthread_mutex_unlock(philo->left_fork) != 0)
-			return (-1);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
 	}
-	return (0);
 }
 
 // 0:Continue processing, 1:Philo dead, -1:Error
@@ -85,20 +77,16 @@ int	handle_fork(t_philosopher *me, bool *is_odd, t_philo_args *args)
 {
 	if (take_forks(me, is_odd, args) != 0)
 		return (-1);
-	if (pthread_mutex_lock(&args->info->monitor.dead) != 0)
-		return (-1);
+	pthread_mutex_lock(&args->info->monitor.dead);
 	if (is_dead(args) != 0)
 	{
-		if (put_forks(me, is_odd) != 0)
-			return (-1);
+		put_forks(me, is_odd);
 		return (1);
 	}
-	if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
-		return (-1);
+	pthread_mutex_unlock(&args->info->monitor.dead);
 	philo_wait(me->lasttime_eat,
 		args->info->args.time_to_eat);
-	if (put_forks(me, is_odd) != 0)
-		return (-1);
+	put_forks(me, is_odd);
 	me->ate_cnt ++;
 	if (me->ate_cnt
 		== args->info->args.number_of_times_each_philosopher_must_eat)

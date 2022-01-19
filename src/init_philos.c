@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:34:13 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/18 11:10:13 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/19 22:04:42 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	set_forks(t_info *info)
 	i = 0;
 	while (i < info->args.number_of_philosophers)
 	{
-		pthread_mutex_init(&fork_mutexes[i], NULL);
+		if (pthread_mutex_init(&fork_mutexes[i], NULL) != 0)
+			return (1);
 		if (i == 0)
 			info->philosophers[i].left_fork
 				= &fork_mutexes[info->args.number_of_philosophers - 1];
@@ -40,10 +41,11 @@ int	set_forks(t_info *info)
 int	init_philos(t_info *info)
 {
 	int	i;
-
 	info->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
 			* info->args.number_of_philosophers);
 	if (info->philosophers == NULL)
+		return (1);
+	if (pthread_mutex_init(&info->monitor.dead, NULL) != 0)
 		return (1);
 	i = 0;
 	while (i < info->args.number_of_philosophers)

@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 13:05:28 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/19 15:28:23 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/19 17:18:44 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	is_dead(t_philo_args *args)
 {
 	if (args->info->monitor.is_a_philosopher_dead)
 	{
-		if (pthread_mutex_unlock(&args->info->monitor.dead) != 0)
-			return (-1);
+		pthread_mutex_unlock(&args->info->monitor.dead);
 	}
 	return (args->info->monitor.is_a_philosopher_dead);
 }

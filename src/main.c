@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:13:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/19 13:51:28 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/19 23:12:00 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int	handle_alone(t_info	*info)
 	return (1);
 }
 
-int	start_philos(t_info *info, t_philo_args *args,
+void	start_philos(t_info *info, t_philo_args *args,
 	pthread_t *philo_threads, pthread_t *monitor_threads)
 {
 	int	i;
 
-	if (pthread_mutex_init(&info->monitor.dead, NULL) != 0)
-		return (1);
 	i = 0;
 	while (i < info->args.number_of_philosophers)
 	{
@@ -38,7 +36,6 @@ int	start_philos(t_info *info, t_philo_args *args,
 		pthread_create(&monitor_threads[i], NULL, monitor, &args[i]);
 		i ++;
 	}
-	return (0);
 }
 
 void	post_processing(t_info *info, pthread_t *philo_threads,
@@ -66,7 +63,7 @@ void	post_processing(t_info *info, pthread_t *philo_threads,
 	free(philo_args_list);
 }
 
-void	malloc_memories(t_info *info, t_philo_args **philo_args_list, pthread_t
+void malloc_memories(t_info *info, t_philo_args **philo_args_list, pthread_t
 	**philo_threads, pthread_t **monitor_threads)
 {
 	*philo_args_list = malloc(sizeof(t_philo_args)
@@ -99,8 +96,6 @@ int	main(int argc, char **argv)
 		|| philo_threads == NULL || monitor_threads == NULL)
 		return (all_free(&info, philo_args_list,
 				philo_threads, monitor_threads));
-	if (start_philos(&info, philo_args_list, philo_threads, monitor_threads))
-		return (all_free(&info, philo_args_list,
-				philo_threads, monitor_threads));
+	start_philos(&info, philo_args_list, philo_threads, monitor_threads);
 	post_processing(&info, philo_threads, monitor_threads, philo_args_list);
 }
