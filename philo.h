@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/18 13:16:33 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/19 13:50:59 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void		*simulation(void *args);
 
 // src/error_handling.c
 int			error(void);
+int			all_free(t_info *info, t_philo_args *philo_args_list,
+				pthread_t *philo_threads, pthread_t *monitor_threads);
 
 // src/init_philos.c
 int			init_philos(t_info *info);

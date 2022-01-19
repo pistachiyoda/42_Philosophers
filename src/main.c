@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:13:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/19 10:27:21 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/19 13:51:28 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ void	post_processing(t_info *info, pthread_t *philo_threads,
 	free(philo_args_list);
 }
 
-void	all_free(
-	t_info *info,
-	t_philo_args *philo_args_list, pthread_t *philo_threads, pthread_t *monitor_threads)
+void	malloc_memories(t_info *info, t_philo_args **philo_args_list, pthread_t
+	**philo_threads, pthread_t **monitor_threads)
 {
-	free(info->philosophers);
-	free(info->fork_mutexes);
-	free(philo_args_list);
-	free(philo_threads);
-	free(monitor_threads);
+	*philo_args_list = malloc(sizeof(t_philo_args)
+			* info->args.number_of_philosophers);
+	*philo_threads = malloc(sizeof(pthread_t)
+			* info->args.number_of_philosophers);
+	*monitor_threads = malloc(sizeof(pthread_t)
+			* info->args.number_of_philosophers);
 }
 
 int	main(int argc, char **argv)
@@ -94,21 +94,13 @@ int	main(int argc, char **argv)
 		free(info.fork_mutexes);
 		return (error());
 	}
-	philo_args_list = malloc(sizeof(t_philo_args)
-			* info.args.number_of_philosophers);
-	philo_threads = malloc(sizeof(pthread_t)
-			* info.args.number_of_philosophers);
-	monitor_threads = malloc(sizeof(pthread_t)
-			* info.args.number_of_philosophers);
-	if (philo_args_list == NULL || philo_threads == NULL || monitor_threads == NULL)
-	{
-		all_free(&info, philo_args_list, philo_threads, monitor_threads);
-		return (1);
-	}
-	if (start_philos(&info, philo_args_list, philo_threads, monitor_threads) != 0)
-	{
-		all_free(&info, philo_args_list, philo_threads, monitor_threads);
-		return (1);
-	}
+	malloc_memories(&info, &philo_args_list, &philo_threads, &monitor_threads);
+	if (philo_args_list == NULL
+		|| philo_threads == NULL || monitor_threads == NULL)
+		return (all_free(&info, philo_args_list,
+				philo_threads, monitor_threads));
+	if (start_philos(&info, philo_args_list, philo_threads, monitor_threads))
+		return (all_free(&info, philo_args_list,
+				philo_threads, monitor_threads));
 	post_processing(&info, philo_threads, monitor_threads, philo_args_list);
 }
