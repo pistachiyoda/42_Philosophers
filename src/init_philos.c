@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:34:13 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/19 22:04:42 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/20 10:06:17 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	set_forks(t_info *info)
 int	init_philos(t_info *info)
 {
 	int	i;
+
 	info->philosophers = (t_philosopher *)malloc(sizeof(t_philosopher)
 			* info->args.number_of_philosophers);
 	if (info->philosophers == NULL)

@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:13:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/19 23:12:00 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/20 10:05:45 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	post_processing(t_info *info, pthread_t *philo_threads,
 	free(philo_args_list);
 }
 
-void malloc_memories(t_info *info, t_philo_args **philo_args_list, pthread_t
+void	malloc_memories(t_info *info, t_philo_args **philo_args_list, pthread_t
 	**philo_threads, pthread_t **monitor_threads)
 {
 	*philo_args_list = malloc(sizeof(t_philo_args)
