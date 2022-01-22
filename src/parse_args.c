@@ -6,13 +6,35 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:27:37 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/18 11:07:53 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/22 14:13:38 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	check_input(t_input_args args)
+int	check_input1(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		if (argv[i][0] == '-' || argv[i][0] == '+')
+			j ++;
+		while (argv[i][j])
+		{
+			if (!is_digit(argv[i][j]))
+				return (1);
+			j ++;
+		}
+		i ++;
+	}
+	return (0);
+}
+
+int	check_input2(t_input_args args)
 {
 	if (args.number_of_philosophers < 1)
 		return (1);
@@ -32,6 +54,8 @@ int	parse_args(int argc, char **argv, t_info *info)
 {
 	if (argc < 5 || 6 < argc)
 		return (1);
+	if (check_input1(argc, argv))
+		return (1);
 	info->args.number_of_philosophers = atoi(argv[1]);
 	info->args.time_to_die = atoi(argv[2]);
 	info->args.time_to_eat = atoi(argv[3]);
@@ -46,5 +70,5 @@ int	parse_args(int argc, char **argv, t_info *info)
 		info->args.is_must_eat = true;
 		info->args.number_of_times_each_philosopher_must_eat = atoi(argv[5]);
 	}
-	return (check_input(info->args));
+	return (check_input2(info->args));
 }

@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/19 13:50:59 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/22 14:11:13 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_philo_args {
 
 // src/atoi.c
 int			atoi(const char *str);
+int			is_digit(int c);
 
 // src/parse_args.c
 int			parse_args(int argc, char **argv, t_info *info);
