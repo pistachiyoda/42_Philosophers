@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 10:46:56 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/19 22:46:39 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/22 20:19:11 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,20 @@ int	take_forks(t_philosopher *philo, bool *is_odd, t_philo_args *args)
 		if (take_a_fork(philo, args, philo->right_fork, false) != 0)
 			return (-1);
 		if (take_a_fork(philo, args, philo->left_fork, true) != 0)
+		{
+			pthread_mutex_unlock(philo->right_fork);
 			return (-1);
+		}
 	}
 	else
 	{
 		if (take_a_fork(philo, args, philo->left_fork, false) != 0 )
 			return (-1);
 		if (take_a_fork(philo, args, philo->right_fork, true) != 0)
+		{
+			pthread_mutex_unlock(philo->left_fork);
 			return (-1);
+		}
 	}
 	return (0);
 }
