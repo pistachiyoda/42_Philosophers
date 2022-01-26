@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 10:13:25 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/24 15:31:01 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/25 22:31:10 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,19 @@ void	close_sems(t_info *info)
 	sem_unlink("/forks");
 	sem_close(info->waiter);
 	sem_unlink("/waiter");
+}
+
+void	kill_children(int count, int killed_pid, int *pids)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		if (pids[i] != killed_pid)
+			kill(pids[i], SIGTERM);
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -82,12 +95,16 @@ int	main(int argc, char **argv)
 		waitpid(pids[i], &proc_status, WNOHANG);
 		if (WIFEXITED(proc_status))
 		{
+			close_sems(&info);
+			kill_children(info.args.number_of_philosophers, pids[i], pids);
 			if (WEXITSTATUS(proc_status) == 1)
 				printf("%lld %d died\n", get_time(), i + 1);
-			close_sems(&info);
-			kill(0, SIGINT);
 			break;
 		}
+		if (i + 1 < info.args.number_of_philosophers)
+			i ++;
+		else
+			i = 0;
 	}
 	// close & unlink semaphore
 	close_sems(&info);
