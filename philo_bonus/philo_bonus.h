@@ -6,7 +6,7 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 22:22:21 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/24 14:46:43 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/27 21:48:23 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include	<semaphore.h>
 # include	<sys/types.h>
 # include	<signal.h>
-
 
 typedef struct s_input_args
 {
@@ -53,6 +52,11 @@ typedef struct s_info
 	sem_t				*waiter;
 }	t_info;
 
+// src/main_utils.c
+int			handle_alone(t_info *info);
+void		close_sems(t_info *info);
+void		kill_children(int count, int killed_pid, int *pids);
+
 // src/atoi.c
 int			atoi(const char *str);
 int			is_digit(int c);
@@ -65,5 +69,5 @@ long long	get_time(void);
 void		philo_wait(long long prev_timestamp, int wait_msec);
 
 // src/proc_philo.c
-void	proc_philo(t_info *info);
+void		proc_philo(t_info *info);
 #endif
