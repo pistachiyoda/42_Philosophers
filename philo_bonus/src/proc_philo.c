@@ -6,15 +6,20 @@
 /*   By: fmai <fmai@student.42tokyo.jp>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:02:51 by fmai              #+#    #+#             */
-/*   Updated: 2022/01/27 21:49:19 by fmai             ###   ########.fr       */
+/*   Updated: 2022/01/27 23:38:46 by fmai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo_bonus.h"
 
-void	take_fork(t_info *info, t_philosopher *philo)
+int	take_fork(t_info *info, t_philosopher *philo)
 {
 	sem_wait(info->waiter);
+	if (philo->lasttime_eat == -1)
+	{
+		sem_post(info->waiter);
+		return (1);
+	}
 	sem_wait(info->forks);
 	printf(
 		"%lld %d has taken a fork\n", get_time(), philo->number + 1);
@@ -25,6 +30,7 @@ void	take_fork(t_info *info, t_philosopher *philo)
 		philo->lasttime_eat, philo->number + 1,
 		philo->lasttime_eat, philo->number + 1);
 	sem_post(info->waiter);
+	return (0);
 }
 
 void	put_fork(t_info *info, t_philosopher *philo)
@@ -48,7 +54,8 @@ void	*thread_philo(void *_info)
 	philo = &info->philosopher;
 	while (1)
 	{
-		take_fork(info, philo);
+		if (take_fork(info, philo))
+			break ;
 		put_fork(info, philo);
 		timestamp = get_time();
 		printf("%lld %d is sleeping\n", timestamp, philo->number + 1);
@@ -65,9 +72,15 @@ void	*thread_monitor(void *_info)
 	info = (t_info *)_info;
 	while (1)
 	{
+		sem_wait(info->waiter);
 		if (info->philosopher.lasttime_eat
 			+ info->args.time_to_die < get_time())
-			exit(1);
+		{
+			info->philosopher.lasttime_eat = -1;
+			sem_post(info->waiter);
+			return (NULL);
+		}
+		sem_post(info->waiter);
 		usleep(500);
 	}
 	return (NULL);
@@ -82,4 +95,5 @@ void	proc_philo(t_info *info)
 	pthread_create(&philo_thread, NULL, thread_philo, info);
 	pthread_join(monitor_thread, NULL);
 	pthread_join(philo_thread, NULL);
+	exit(1);
 }
